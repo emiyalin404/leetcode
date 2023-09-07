@@ -7,23 +7,21 @@ public class MinimumSizeSubsrraySum {
     }
 
     public static void input(int target, int[] nums) {
-        int windowSum = 0, windowStart = 0;
-        int minWindowSize = Integer.MAX_VALUE;
-
+        int sum = 0, start = 0;
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < nums.length; i++) {
-            windowSum += nums[i];
-
-            while (windowSum >= target) {
-                minWindowSize = Math.min(minWindowSize, i - windowStart + 1);
-                windowSum -= nums[windowStart];
-                windowStart++;
+            sum += nums[i];
+            while (sum >= target) {
+                min = Math.min(min, i - start + 1);
+                sum -= nums[start];
+                start++;
             }
         }
-        // return minWindowSize==Integer.MAX_VALUE? 0: minWindowSize;
-        if (minWindowSize == Integer.MAX_VALUE) {
-            System.out.println("No subarray found.");
+        if (min == Integer.MAX_VALUE) {
+            return;
         } else {
-            System.out.println("Minimum window size: " + minWindowSize);
+            // return min;
+            System.out.println(min);
         }
     }
 }

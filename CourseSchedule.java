@@ -4,40 +4,49 @@ import java.util.Queue;
 
 public class CourseSchedule {
     public static void main(String[] args) {
+        CourseSchedule solution = new CourseSchedule();
         int numCourses = 2;
         int[][] prerequisites = { { 1, 0 }, { 0, 1 } };
-        input(numCourses, prerequisites);
+        boolean ans = solution.input(numCourses, prerequisites);
+        System.out.println(ans);
+        // input(numCourses, prerequisites);
     }
 
-    public static void input(int numCourses, int[][] prerequisites) {
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>(numCourses);
-        for (int i = 0; i < numCourses; i++) {
-            graph.add(new ArrayList<>());
+    public boolean input(int n, int[][] p) {
+        int top_sort[] = new int[n];
+        int indegree[] = new int[n];
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
         }
-        int[] inDegree = new int[numCourses];
-        for (int[] a : prerequisites) {
-            int course = a[0];
-            int pre_course = a[1];
-            graph.get(pre_course).add(course);
-            inDegree[course]++;
+        for (int i = 0; i < p.length; i++) {
+            adj.get(p[i][1]).add(p[i][0]);
         }
-        Queue<Integer> queue = new LinkedList<>();
-        int count = 0;
-        for (int i = 0; i < numCourses; i++) {
-            if (inDegree[i] == 0)
-                queue.offer(i);
-        }
-        while (queue.size() > 0) {
-            int curr = queue.poll();
-            count++;
-            for (int item : graph.get(curr)) {
-                inDegree[item]--;
-                if (inDegree[item] == 0)
-                    queue.offer(item);
+        for (int i = 0; i < n; i++) {
+            for (Integer it : adj.get(i)) {
+                indegree[it]++;
             }
         }
-
-        System.out.println(count == numCourses);
-        // return count == numCourses;
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+        int c = 0;
+        while (!q.isEmpty()) {
+            Integer curr = q.poll();
+            top_sort[c++] = curr;
+            for (Integer i : adj.get(curr)) {
+                indegree[i]--;
+                if (indegree[i] == 0)
+                    q.add(i);
+            }
+        }
+        if (c == n)
+            return true;
+        return false;
     }
 }

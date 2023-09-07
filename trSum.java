@@ -1,16 +1,27 @@
+
+// import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class trSum {
     public static void main(String[] args) {
-        int[] nums = { -2, 0, 0, 2, 2 };
+        int[] nums = { -1, 0, 1, 2, -1, -4 };
         trSum solution = new trSum();
         List<List<Integer>> triplets = solution.threeSum(nums);
         System.out.println(triplets);
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
+        // List<List<Integer>> result=new ArrayList<>();
+        // int n=nums.length;
+        // Arrays.sort(nums);
+        // for(int i=0;i<n;i++){
+        // if(i>0 && nums[i]==nums[i-1]){
+        // continue;
+        // }
+
+        // }
         List<List<Integer>> result = new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);
@@ -43,7 +54,7 @@ public class trSum {
                 }
             }
         }
-        // // System.out.println(result);
+        // System.out.println(result);
         return result;
 
     }

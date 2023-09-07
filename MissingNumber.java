@@ -2,7 +2,6 @@ public class MissingNumber {
     public static void main(String[] args) {
         int[] nums = { 3, 0, 1 };
         input(nums);
-
     }
 
     public static void input(int[] nums) {

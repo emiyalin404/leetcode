@@ -27,7 +27,7 @@ public class FindAllNumbersDisappeared {
             }
         }
 
-        for (i = 0; i < n; ++i) {
+        for (i = 0; i < n; i++) {
             if (nums[i] != i + 1) {
                 missed.add(i + 1);
             }

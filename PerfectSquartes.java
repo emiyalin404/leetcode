@@ -3,6 +3,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+// import java.util.Set;
+
 public class PerfectSquartes {
     public static void main(String[] args) {
         int n = 12;
@@ -10,6 +12,7 @@ public class PerfectSquartes {
     }
 
     public static void input(int n) {
+
         Queue<Integer> queue = new LinkedList<>();
         Set<Integer> reviewedSet = new HashSet<>();
 
@@ -17,6 +20,7 @@ public class PerfectSquartes {
             queue.offer(n);
         int level = 0;
         while (!queue.isEmpty()) {
+
             level++;
             int size = queue.size();
             for (int i = 1; i <= size; i++) {
@@ -31,8 +35,7 @@ public class PerfectSquartes {
                     queue.offer(val - (j * j));
                 }
             }
+            // System.out.println(level);
         }
-        // System.out.print(level + ",j8");
-        // return level;
     }
 }

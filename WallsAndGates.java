@@ -1,65 +1,45 @@
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class WallsAndGates {
+    public static void main(String[] args) {
+        char[][] grid = {
+                { 1, 1, 1, 1, 0 },
+                { 1, 1, 0, 1, 0 },
+                { 1, 1, 0, 0, 0 },
+                { 0, 0, 0, 0, 0 } };
+        input(grid);
+    }
 
-    public void wallsAndGates(int[][] rooms) {
-        int m = rooms.length;
-        if (m == 0)
+    public static void input(char[][] grid) {
+        int m = grid.length;
+        if (m == 0) {
             return;
-        int n = rooms[0].length;
-
-        int[][] vectors = {
-                { -1, 0 },
-                { 1, 0 },
-                { 0, -1 },
-                { 0, 1 }
-        };
-
-        Queue<int[]> queue = new LinkedList<>();
+        }
+        int n = grid[0].length;
+        int count = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (rooms[i][j] == 0) {
-                    queue.offer(new int[] { i, j });
+                if (grid[i][j] == '1') {
+                    count++;
+                    dfs(grid, i, j);
                 }
             }
         }
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int i = current[0];
-            int j = current[1];
-
-            for (int[] vector : vectors) {
-                int nextI = i + vector[0];
-                int nextJ = j + vector[1];
-
-                if (nextI < 0 || nextI >= m || nextJ < 0 || nextJ >= n || rooms[nextI][nextJ] <= rooms[i][j]) {
-                    continue;
-                }
-
-                rooms[nextI][nextJ] = rooms[i][j] + 1;
-                queue.offer(new int[] { nextI, nextJ });
-            }
-        }
+        System.out.print(count);
     }
 
-    public static void main(String[] args) {
-        int[][] rooms = {
-                { Integer.MAX_VALUE, -1, 0, Integer.MAX_VALUE },
-                { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, -1 },
-                { Integer.MAX_VALUE, -1, Integer.MAX_VALUE, -1 },
-                { 0, -1, Integer.MAX_VALUE, Integer.MAX_VALUE }
-        };
+    public static void dfs(char[][] grid, int i, int j) {
+        int m = grid.length;
+        int n = grid[0].length;
 
-        WallsAndGates solution = new WallsAndGates();
-        solution.wallsAndGates(rooms);
-
-        for (int i = 0; i < rooms.length; i++) {
-            for (int j = 0; j < rooms[0].length; j++) {
-                System.out.print(rooms[i][j] + " ");
-            }
-            System.out.println();
+        if (i < m || i >= 0 || j < 0 || j >= n || grid[i][j] == '0') {
+            return;
         }
+        grid[i][j] = '0';
+        dfs(grid, i - 1, j);
+        dfs(grid, i + 1, j);
+        dfs(grid, i, j - 1);
+        dfs(grid, i, j + 1);
+
     }
+
 }
